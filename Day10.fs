@@ -1,4 +1,4 @@
-module aoc_2021.Day10x
+module Day10
 open Util
 
 let day = "10"
@@ -27,11 +27,11 @@ let scoreMapA = List.zip [')'; ']'; '}'; '>'] [3; 57; 1197; 25137] |> Map.ofList
 let scoreA = function
     | Corrupt c -> scoreMapA.[c]
     | _ -> 0
-let scoreMapB = List.zip [')'; ']'; '}'; '>'] [1; 2; 3; 4] |> Map.ofList
+let scoreMapB = List.zip [')'; ']'; '}'; '>'] [1L; 2L; 3L; 4L] |> Map.ofList
 let scoreB = function
     | Incomplete stack when stack.Length = 0 -> failwithf "Empty stack incomplete"
-    | Incomplete stack -> stack |> List.fold (fun s c -> s*5+scoreMapB.[c]) 0
-    | _ -> 0
+    | Incomplete stack -> stack |> List.fold (fun s c -> s*5L+scoreMapB.[c]) 0L
+    | _ -> 0L
 
 let calcA lines =
     lines |> List.sumBy (checkLine >> scoreA)
@@ -53,7 +53,7 @@ let ex = split """
 <{([{{}}[<[[[<>{}]]]>[]]
 """
 
-let t, r = test32 day, test32 $"{day}R"
+let t, r = test64 day, test64 $"{day}R"
 
 let tests _ =
     //printfn "todo"
@@ -70,4 +70,4 @@ let result =
     //printfn "todo"
     let input = readAndParseFile day parseLine
     r (calcA input) 442131
-    r (calcB input) 3
+    r (calcB input) 3646451424L

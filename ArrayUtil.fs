@@ -19,7 +19,7 @@ let padArray value arr =
     Array2D.blit arr 0 0 arrPadded 1 1 dims.width dims.height
     arrPadded
 
-let dumpImpl x1 x2 y1 y2 formatter (arr:int[,]) =
+let dumpImpl x1 x2 y1 y2 formatter (arr:'t[,]) =
     for y in y1..y2 do
         for x in x1..x2 do
             printf $"{formatter arr.[x, y]}"

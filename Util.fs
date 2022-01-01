@@ -8,7 +8,7 @@ let rec pow2 = function
     | n when n > 0 -> 2L*(pow2 (n-1))
     | _ as n -> failwithf $"Invalid exponent {n}"
 
-let testgeneric context (expected) (actual) = 
+let testgeneric<'T when 'T:equality> context (actual:'T) (expected:'T) = 
     if expected = actual then
         printfn $"{context} OK:\t{expected}"
     else
@@ -47,7 +47,7 @@ let readAndParseFile day parseLine =
     Seq.filter (String.IsNullOrWhiteSpace >> not) |> Seq.map (fun s -> s.Trim()) |>
     Seq.map parseLine |> List.ofSeq
 
-let readAndParseMulti day parse =
+let readAndParseChunked day parse =
     let filename = $"input-{day}.txt"
     parse (File.ReadAllLines(getPath filename) |> Seq.ofArray |> Seq.map (fun s -> s.Trim()) |> List.ofSeq)
 
